@@ -45,7 +45,8 @@ CREATE TABLE IF NOT EXISTS zone(
 create_leveringsbud_table = """
 CREATE TABLE IF NOT EXISTS leveringsbud(
     id INT PRIMARY KEY AUTO_INCREMENT,
-    bNavn VARCHAR(255) NOT NULL
+    bFornavn VARCHAR(255) NOT NULL,
+    bEfternavn VARCHAR(255) NOT NULL
 );
 """
 

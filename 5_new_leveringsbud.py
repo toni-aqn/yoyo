@@ -2,7 +2,7 @@ import mysql.connector
 from mysql.connector import Error
 
 # Opret forbindelse til databasen
-def create_connection(host_name, user_name, user_password,db_name):
+def create_connection(host_name, user_name, user_password, db_name):
     connection = None
     try:
         connection = mysql.connector.connect(
@@ -20,7 +20,7 @@ def create_connection(host_name, user_name, user_password,db_name):
 
 # Kald funktionen
 connection = create_connection("localhost", "root", "1234","yoyoDB")
-
+cursor = connection.cursor()
 
 # Funktion til at lave queries
 def execute_query(connection, query):
@@ -33,42 +33,31 @@ def execute_query(connection, query):
         print(f"The error '{e}' occurred")
 
 
-# Insert query // Zone
-insert_zone_values = """
+
+insert_ny_leveringsbud_values = """
 INSERT INTO
-    zone (zNavn, postnummer)
+    leveringsbud (bFornavn, bEfternavn)
 VALUES
-    ('Valby', 2500),
-    ('Frederiksberg', 2000),
-    ('Nørrebro', 2200),
-    ('Nordvest', 2400);
+    (%s,%s);
 """
 
-insert_leveringsbud_values = """
-INSERT INTO
-    leveringsbud (bNavn)
-VALUES
-    ('Toni'),
-    ('Daniela'),
-    ('Mikkel'),
-    ('Oliver');
-"""
+print("---Opret dig som leveringsbud---")
+bud_fornavn = input("Tast dit fornavn: ").title()
+bud_efternavn = input("Tast dit efternavn: ").title()
 
-insert_zonebud_values = """
-INSERT INTO
-    zonebud (fk_zone_id, fk_bud_id)
-VALUES
-    ('1', null),
-    ('1', null),
-    ('1', null),
-    ('1', null);
-"""
+data = (bud_fornavn, bud_efternavn)
 
-# drop_table = """
-# TRUNCATE zonebud;
-# """
+try:
+   # Executing the SQL command
+   cursor.execute(insert_ny_leveringsbud_values, data)
+   
+   # Commit your changes in the database
+   connection.commit()
+   print("Succes")
 
-# execute_query(connection, insert_zone_values)
-# execute_query(connection, insert_leveringsbud_values)
-# execute_query(connection, insert_zonebud_values)
-# execute_query(connection, drop_table)
+except:
+   # Rolling back in case of error
+#    conn.rollback()
+    print("Failed")
+
+connection.close()
