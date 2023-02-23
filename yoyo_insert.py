@@ -34,14 +34,41 @@ def execute_query(connection, query):
 
 
 # Insert query // Zone
-create_zone = """
+insert_zone_values = """
 INSERT INTO
-  zone (zNavn, postnummer, aktiv)
+    zone (zNavn, postnummer)
 VALUES
-  ('Valby', 2500),
-  ('Frederiksberg', 2000),
-  ('Noerrebro', 2200),
-  ('Nordvest', 2400, 0);
+    ('Valby', 2500),
+    ('Frederiksberg', 2000),
+    ('Nørrebro', 2200),
+    ('Nordvest', 2400);
 """
 
-execute_query(connection, create_zone)
+insert_leveringsbud_values = """
+INSERT INTO
+    leveringsbud (bNavn)
+VALUES
+    ('Toni'),
+    ('Daniela'),
+    ('Mikkel'),
+    ('Oliver');
+"""
+
+insert_zonebud_values = """
+INSERT INTO
+    zonebud (fk_zone_id, fk_bud_id)
+VALUES
+    ('1', null),
+    ('1', null),
+    ('1', null),
+    ('1', null);
+"""
+
+# drop_table = """
+# TRUNCATE zonebud;
+# """
+
+# execute_query(connection, insert_zone_values)
+# execute_query(connection, insert_leveringsbud_values)
+# execute_query(connection, insert_zonebud_values)
+# execute_query(connection, drop_table)
