@@ -20,7 +20,7 @@ def create_connection(host_name, user_name, user_password, db_name):
 
 # Kald funktionen
 connection = create_connection("localhost", "root", "1234","yoyoDB")
-
+cursor = connection.cursor()
 
 # Funktion til at lave queries
 def execute_query(connection, query):
@@ -33,39 +33,38 @@ def execute_query(connection, query):
         print(f"The error '{e}' occurred")
 
 
-# Insert query // Zone
-insert_zone_values = """
-INSERT INTO
-    zone (zNavn, postnummer)
-VALUES
-    ('Valby', 2500),
-    ('Frederiksberg', 2000),
-    ('Nørrebro', 2200),
-    ('Nordvest', 2400);
-"""
 
-insert_leveringsbud_values = """
-INSERT INTO
-    leveringsbud (bFornavn, bEfternavn)
-VALUES
-    ('Toni', 'Night'),
-    ('Daniela', 'Colonel'),
-    ('Mikkel', 'High'),
-    ('Oliver','Guard');
-"""
-
-insert_zonebud_values = """
+insert_ny_zone_values = """
 INSERT INTO
     zonebud (fk_zone_id, fk_bud_id)
 VALUES
-    ('1', null),
-    ('1', null),
-    ('1', null),
-    ('1', null);
+    (%s,%s);
 """
 
-execute_query(connection, insert_zone_values)
-execute_query(connection, insert_leveringsbud_values)
-execute_query(connection, insert_zonebud_values)
+# VI SKAL LAVE EN VISNING OVER ZONERNE OG BUDDENE
+
+print("--- Sæt et eksisterende bud på en zone ---")
+zone_id = int(input("Tast nummeret på zonen: #"))
+leveringsbud_id = int(input("Tast id'et leveringsbuddet: #"))
+
+# Der skal være et userinput, hvor der i baggrunden er en SQL query der vælger SET WHERE ID = userinputtet.
+# I den oprindelige oprettelse af tabels eksistere der 4 records i zonebud - der skal være mulighed for et leveringsbud
+# at sætte sig på en af de records, vha. en UPDATE SET måske(?)
+
+
+data = (zone_id, leveringsbud_id)
+
+try:
+   # Executing the SQL command
+   cursor.execute(insert_ny_zone_values, data)
+   
+   # Commit your changes in the database
+   connection.commit()
+   print("Succes")
+
+except:
+   # Rolling back in case of error
+#    conn.rollback()
+    print(f"Failed, der eksistere ikke en zone #{zone_id} eller et bud #{leveringsbud_id}")
 
 connection.close()

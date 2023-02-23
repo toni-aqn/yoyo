@@ -48,3 +48,5 @@ DROP TABLE zone;
 execute_query(connection, drop_zonebud)
 execute_query(connection, drop_leveringsbud)
 execute_query(connection, drop_zone)
+
+connection.close()

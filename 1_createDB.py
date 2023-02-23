@@ -31,3 +31,5 @@ def create_database(connection, query):
 
 create_database_query = "CREATE DATABASE yoyoDB"
 create_database(connection, create_database_query)
+
+connection.close()

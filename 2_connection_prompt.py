@@ -25,3 +25,5 @@ db_navn = input("Skriv navnet på databasen du vil connecte til (yoyoDB): ")
 
 # Kald funktionen
 connection = create_connection("localhost", bruger, kode, db_navn)
+
+connection.close()

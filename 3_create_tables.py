@@ -64,3 +64,5 @@ CREATE TABLE IF NOT EXISTS zonebud(
 execute_query(connection, create_zone_table)
 execute_query(connection, create_leveringsbud_table) 
 execute_query(connection, create_zonebud_table) 
+
+connection.close()
