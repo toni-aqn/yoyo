@@ -19,7 +19,7 @@ def create_connection(host_name, user_name, user_password, db_name):
     return connection
 
 # Kald funktionen
-connection = create_connection("localhost", "root", "1234","yoyoDB")
+connection = create_connection("localhost", "root", "1234","gruppe14_yoyoDB")
 cursor = connection.cursor()
 
 # Funktion til at lave queries

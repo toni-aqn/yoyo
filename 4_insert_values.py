@@ -19,7 +19,7 @@ def create_connection(host_name, user_name, user_password, db_name):
     return connection
 
 # Kald funktionen
-connection = create_connection("localhost", "root", "1234","yoyoDB")
+connection = create_connection("localhost", "root", "1234","gruppe14_yoyoDB")
 
 
 # Funktion til at lave queries
@@ -61,11 +61,40 @@ VALUES
     ('1', null),
     ('1', null),
     ('1', null),
-    ('1', null);
+    ('1', null),
+    ('1', null),
+    ('2', null);
+"""
+
+insert_restaurant_values = """
+INSERT INTO
+    restaurant (rNavn, fk_zone_id)
+VALUES
+    ('BurgerHouse', 1),
+    ('Wokshop', 1),
+    ('McDonalds', 2),
+    ('Halifax', 2),
+    ('Kebabistan', 3),
+    ('Grillen', 3),
+    ('Pappas', 4),
+    ('FalafelHouse', 4);
+"""
+
+insert_kunde_values = """
+INSERT INTO
+    kunde (kFornavn, kEfternavn, fk_zone_id)
+VALUES
+    ('Andreas', 'Kardashian', 1),
+    ('Zacharias', 'Nugget', 2),
+    ('Jamshid', 'Exotic', 2),
+    ('Walther', 'White', 4),
+    ('Albert', 'Einstein', 3);
 """
 
 execute_query(connection, insert_zone_values)
 execute_query(connection, insert_leveringsbud_values)
 execute_query(connection, insert_zonebud_values)
+execute_query(connection, insert_restaurant_values)
+execute_query(connection, insert_kunde_values)
 
 connection.close()

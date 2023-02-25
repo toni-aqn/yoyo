@@ -18,7 +18,7 @@ def create_connection(host_name, user_name, user_password,db_name):
     
     return connection
 
-connection = create_connection("localhost", "root", "1234","yoyoDB")
+connection = create_connection("localhost", "root", "1234","gruppe14_yoyoDB")
 
 #------------------------------------------------------#
 
@@ -33,6 +33,10 @@ def execute_query(connection, query):
     except Error as e:
         print(f"The error '{e}' occurred")
         
+
+#------------------------------------------------------#
+
+# Her laver vi nogle tables til vores database
 
 create_zone_table = """
 CREATE TABLE IF NOT EXISTS zone(
@@ -60,9 +64,28 @@ CREATE TABLE IF NOT EXISTS zonebud(
 );
 """
 
+create_restaurant_table = """
+CREATE TABLE IF NOT EXISTS restaurant(
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    rNavn VARCHAR(255),
+    fk_zone_id INT NOT NULL,
+    FOREIGN KEY (fk_zone_id) REFERENCES zone(id)
+);
+"""
+
+create_kunde_table = """
+CREATE TABLE IF NOT EXISTS kunde(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    kFornavn VARCHAR(255) NOT NULL,
+    kEfternavn VARCHAR(255) NOT NULL,
+    fk_zone_id INT NOT NULL,
+    FOREIGN KEY (fk_zone_id) REFERENCES zone(id)
+);
+"""
+
 
 execute_query(connection, create_zone_table)
-execute_query(connection, create_leveringsbud_table) 
-execute_query(connection, create_zonebud_table) 
-
-connection.close()
+execute_query(connection, create_leveringsbud_table)
+execute_query(connection, create_zonebud_table)
+execute_query(connection, create_restaurant_table)
+execute_query(connection, create_kunde_table)

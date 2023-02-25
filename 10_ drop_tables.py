@@ -19,7 +19,7 @@ def create_connection(host_name, user_name, user_password, db_name):
     return connection
 
 # Kald funktionen
-connection = create_connection("localhost", "root", "1234","yoyoDB")
+connection = create_connection("localhost", "root", "1234","gruppe14_yoyoDB")
 
 
 # Funktion til at lave queries
@@ -28,7 +28,7 @@ def execute_query(connection, query):
     try:
         cursor.execute(query)
         connection.commit()
-        print("Query executed successfully")
+        print("Table dropped succesfully")
     except Error as e:
         print(f"The error '{e}' occurred")
 
@@ -45,8 +45,18 @@ drop_zone = """
 DROP TABLE zone;
 """
 
+drop_restaurant = """
+DROP TABLE restaurant;
+"""
+
+drop_kunde = """
+DROP TABLE kunde;
+"""
+
 execute_query(connection, drop_zonebud)
 execute_query(connection, drop_leveringsbud)
+execute_query(connection, drop_restaurant)
+execute_query(connection, drop_kunde)
 execute_query(connection, drop_zone)
 
 connection.close()
